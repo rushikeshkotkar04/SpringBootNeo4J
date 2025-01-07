@@ -1,0 +1,82 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>home</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    My Home-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node and Relationship</title>
+    <style>
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        .input-container {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Add Nodes and Relationships</h1>
+
+<button onclick="showInput('node')">Add Node</button>
+<button onclick="showInput('relationship')">Add Relationship</button>
+<a th:href="@{/show}">
+    <button>Show Graph</button>
+</a>
+
+<!-- Form for Node and Relationship -->
+<div id="node-input" class="input-container">
+    <form action="/add-node" method="POST">
+        <label for="node-name">Enter Node Name:</label>
+        <input type="text" id="node-name" name="node-name">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<div id="relationship-input" class="input-container">
+    <form action="/add-relationship" method="POST">
+        <label for="person1">Enter Relationship Name:</label>
+        <input type="text" id="person1" name="person1">
+        <label for="relationship-name">Enter Relationship Name:</label>
+        <input type="text" id="relationship-name" name="relationship-name">
+        <label for="person2">Enter Relationship Name:</label>
+        <input type="text" id="person2" name="person2">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    function showInput(type) {
+        // Hide both forms initially
+        document.getElementById('node-input').style.display = 'none';
+        document.getElementById('relationship-input').style.display = 'none';
+
+        // Show the respective form
+        if (type === 'node') {
+            document.getElementById('node-input').style.display = 'block';
+        } else if (type === 'relationship') {
+            document.getElementById('relationship-input').style.display = 'block';
+        }
+    }
+</script>
+</body>
+</html>

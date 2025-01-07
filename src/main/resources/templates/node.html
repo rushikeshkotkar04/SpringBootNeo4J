@@ -1,0 +1,489 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Graph Visualization</title>-->
+
+<!--    &lt;!&ndash; Cytoscape.js &ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.22.0/cytoscape.min.js"></script>-->
+
+<!--    <style>-->
+<!--        #graph {-->
+<!--            width: 100%;-->
+<!--            height: 600px;-->
+<!--            border: 1px solid black;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Visualization</h1>-->
+<!--&lt;!&ndash;<button onclick="window.location.href='@{/}';">Go to home Page</button>&ndash;&gt;-->
+<!--<a th:href="@{/}">-->
+<!--    <button>Go to Home Page</button>-->
+<!--</a>-->
+<!--<h2></h2>-->
+<!--<div id="graph"></div>-->
+
+<!--<script th:inline="javascript">-->
+<!--    /*<![CDATA[*/-->
+<!--    // The nodes and edges data passed from the controller-->
+<!--    const nodesWithRelations = [[${graphData.nodesWithRelations}]];-->
+<!--    const nodesWithoutRelations = [[${graphData.nodesWithoutRelations}]];-->
+<!--    const edges = [[${graphData.edges}]];-->
+
+<!--    console.log('Nodes with relations:', nodesWithRelations);-->
+<!--    console.log('Nodes without relations:', nodesWithoutRelations);-->
+<!--    console.log('Edges:', edges);-->
+
+<!--    // Prepare Cytoscape.js elements from the Thymeleaf model data-->
+<!--    const cyElements = {-->
+<!--        nodes: [-->
+<!--            ...nodesWithRelations.map(node => ({-->
+<!--                data: { id: node.id, label: node.label }-->
+<!--            })),-->
+<!--            ...nodesWithoutRelations.map(node => ({-->
+<!--                data: { id: node.id, label: node.label }-->
+<!--            }))-->
+<!--        ],-->
+<!--        edges: edges.map(edge => ({-->
+<!--            data: { source: edge.source, target: edge.target, label: edge.label }-->
+<!--        }))-->
+<!--    };-->
+
+<!--    // Initialize Cytoscape.js to render the graph-->
+<!--    const cy = cytoscape({-->
+<!--        container: document.getElementById('graph'),-->
+<!--        elements: cyElements,-->
+<!--        style: [-->
+<!--            {-->
+<!--                selector: 'node',-->
+<!--                style: {-->
+<!--                    'content': 'data(label)',-->
+<!--                    'text-valign': 'center',-->
+<!--                    'background-color': '#666',-->
+<!--                    'color': '#fff',-->
+<!--                    'width': 40,-->
+<!--                    'height': 40-->
+<!--                }-->
+<!--            },-->
+<!--            {-->
+<!--                selector: 'edge',-->
+<!--                style: {-->
+<!--                    'width': 3,-->
+<!--                    'line-color': '#ccc',-->
+<!--                    'target-arrow-color': '#ccc',-->
+<!--                    'target-arrow-shape': 'triangle',-->
+<!--                    'label': 'data(label)',-->
+<!--                    'text-opacity': 0.7-->
+<!--                }-->
+<!--            }-->
+<!--        ],-->
+<!--        layout: {-->
+<!--            name: 'grid',-->
+<!--            rows: 1-->
+<!--        }-->
+<!--    });-->
+<!--    /*]]>*/-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Neo4j Graph Visualization</title>-->
+
+<!--    &lt;!&ndash; Cytoscape.js &ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.22.0/cytoscape.min.js"></script>-->
+
+<!--    <style>-->
+<!--        #graph {-->
+<!--            width: 80%;-->
+<!--            height: 500px;-->
+<!--            border: 1px solid #ccc;-->
+<!--            margin: 20px auto;-->
+<!--            background-color: #f9f9f9;-->
+<!--            border-radius: 10px;-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            text-align: center;-->
+<!--            font-size: 24px;-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            text-align: center;-->
+<!--            font-size: 20px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Graph Visualization from Neo4j</h1>-->
+<!--<h2>Nodes with Relationships</h2>-->
+<!--<div id="graph"></div>-->
+
+<!--<script th:inline="javascript">-->
+<!--    /*<![CDATA[*/-->
+<!--    // The nodes and edges data passed from the controller-->
+<!--    const nodesWithRelations = /*[[${graphData.nodesWithRelations}]]*/ [];-->
+<!--    const nodesWithoutRelations = /*[[${graphData.nodesWithoutRelations}]]*/ [];-->
+<!--    const edges = /*[[${graphData.edges}]]*/ [];-->
+
+<!--    console.log('Nodes with relations:', nodesWithRelations);-->
+<!--    console.log('Nodes without relations:', nodesWithoutRelations);-->
+<!--    console.log('Edges:', edges);-->
+
+<!--    // Prepare Cytoscape.js elements from the Thymeleaf model data-->
+<!--    const cyElements = {-->
+<!--        nodes: [-->
+<!--            ...nodesWithRelations.map(node => ({-->
+<!--                data: { id: node.id, label: node.label, color: 'blue' }-->
+<!--            })),-->
+<!--            ...nodesWithoutRelations.map(node => ({-->
+<!--                data: { id: node.id, label: node.label, color: 'gray' }-->
+<!--            }))-->
+<!--        ],-->
+<!--        edges: edges.map(edge => ({-->
+<!--            data: { source: edge.source, target: edge.target, label: edge.label }-->
+<!--        }))-->
+<!--    };-->
+
+<!--    // Initialize Cytoscape.js to render the graph-->
+<!--    const cy = cytoscape({-->
+<!--        container: document.getElementById('graph'),-->
+<!--        elements: cyElements,-->
+<!--        style: [-->
+<!--            {-->
+<!--                selector: 'node',-->
+<!--                style: {-->
+<!--                    'content': 'data(label)',-->
+<!--                    'text-valign': 'center',-->
+<!--                    'background-color': 'data(color)', // Use node color dynamically-->
+<!--                    'color': '#fff',-->
+<!--                    'width': 40,-->
+<!--                    'height': 40,-->
+<!--                    'font-size': 14-->
+<!--                }-->
+<!--            },-->
+<!--            {-->
+<!--                selector: 'edge',-->
+<!--                style: {-->
+<!--                    'width': 3,-->
+<!--                    'line-color': '#ccc',-->
+<!--                    'target-arrow-color': '#ccc',-->
+<!--                    'target-arrow-shape': 'triangle',-->
+<!--                    'label': 'data(label)',-->
+<!--                    'text-opacity': 0.7-->
+<!--                }-->
+<!--            }-->
+<!--        ],-->
+<!--        layout: {-->
+<!--            name: 'grid',-->
+<!--            rows: 2-->
+<!--        }-->
+<!--    });-->
+<!--    /*]]>*/-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Graph Visualization</title>-->
+
+<!--    &lt;!&ndash; Cytoscape.js &ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.22.0/cytoscape.min.js"></script>-->
+
+<!--    <style>-->
+<!--        /* Graph container with border and padding */-->
+<!--        #graph-container {-->
+<!--            width: 80%;-->
+<!--            height: 600px;-->
+<!--            border: 2px solid #333;-->
+<!--            margin: 20px auto;-->
+<!--            border-radius: 10px;-->
+<!--            background-color: #f0f0f0;-->
+<!--            padding: 10px;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        #graph {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            display: block; /* Make sure it takes full width/height */-->
+<!--        }-->
+
+<!--        /* Display a message when there are no nodes */-->
+<!--        #empty-message {-->
+<!--            position: absolute;-->
+<!--            top: 50%;-->
+<!--            left: 50%;-->
+<!--            transform: translate(-50%, -50%);-->
+<!--            font-size: 18px;-->
+<!--            color: #888;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            text-align: center;-->
+<!--            font-size: 24px;-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            text-align: center;-->
+<!--            font-size: 20px;-->
+<!--        }-->
+
+<!--        button {-->
+<!--            display: block;-->
+<!--            margin: 20px auto;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Graph Visualization</h1>-->
+<!--<a th:href="@{/}">-->
+<!--    <button>Go to Home Page</button>-->
+<!--</a>-->
+
+<!--<h2>Graph of Nodes with Relationships</h2>-->
+
+<!--&lt;!&ndash; Graph Container &ndash;&gt;-->
+<!--<div id="graph-container">-->
+<!--    &lt;!&ndash; Empty Message (will be hidden if graph data exists) &ndash;&gt;-->
+<!--    <div id="empty-message">No graph data available</div>-->
+<!--    &lt;!&ndash; Actual Graph &ndash;&gt;-->
+<!--    <div id="graph"></div>-->
+<!--</div>-->
+
+<!--<script th:inline="javascript">-->
+<!--    /*<![CDATA[*/-->
+<!--    // The nodes and edges data passed from the controller-->
+<!--    const nodesWithRelations = [[${graphData.nodesWithRelations}]];-->
+<!--    const nodesWithoutRelations = [[${graphData.nodesWithoutRelations}]];-->
+<!--    const edges = [[${graphData.edges}]];-->
+
+<!--    console.log('Nodes with relations:', nodesWithRelations);-->
+<!--    console.log('Nodes without relations:', nodesWithoutRelations);-->
+<!--    console.log('Edges:', edges);-->
+
+<!--    // Check if there is data to display-->
+<!--    if (nodesWithRelations.length > 0 || nodesWithoutRelations.length > 0 || edges.length > 0) {-->
+<!--        // Remove the "No graph data available" message-->
+<!--        document.getElementById('empty-message').style.display = 'none';-->
+
+<!--        // Prepare Cytoscape.js elements from the Thymeleaf model data-->
+<!--        const cyElements = {-->
+<!--            nodes: [-->
+<!--                ...nodesWithRelations.map(node => ({-->
+<!--                    data: { id: node.id, label: node.label }-->
+<!--                })),-->
+<!--                ...nodesWithoutRelations.map(node => ({-->
+<!--                    data: { id: node.id, label: node.label }-->
+<!--                }))-->
+<!--            ],-->
+<!--            edges: edges.map(edge => ({-->
+<!--                data: { source: edge.source, target: edge.target, label: edge.label }-->
+<!--            }))-->
+<!--        };-->
+
+<!--        // Initialize Cytoscape.js to render the graph-->
+<!--        const cy = cytoscape({-->
+<!--            container: document.getElementById('graph'),-->
+<!--            elements: cyElements,-->
+<!--            style: [-->
+<!--                {-->
+<!--                    selector: 'node',-->
+<!--                    style: {-->
+<!--                        'content': 'data(label)',-->
+<!--                        'text-valign': 'center',-->
+<!--                        'background-color': '#66CC66', // Green for nodes with relations-->
+<!--                        'color': '#fff',-->
+<!--                        'width': 40,-->
+<!--                        'height': 40,-->
+<!--                        'font-size': 14-->
+<!--                    }-->
+<!--                },-->
+<!--                {-->
+<!--                    selector: 'edge',-->
+<!--                    style: {-->
+<!--                        'width': 5,  // Increased width for better visibility-->
+<!--                        'line-color': '#333',  // Darker line color-->
+<!--                        'target-arrow-color': '#333',  // Arrow color matching the edge-->
+<!--                        'target-arrow-shape': 'triangle',-->
+<!--                        'label': 'data(label)',  // Display relationship name-->
+<!--                        'text-opacity': 0.7-->
+<!--                    }-->
+<!--                }-->
+<!--            ],-->
+<!--            layout: {-->
+<!--                name: 'grid',-->
+<!--                rows: 2-->
+<!--            }-->
+<!--        });-->
+<!--    } else {-->
+<!--        // If no nodes or edges exist, show the "No data" message-->
+<!--        document.getElementById('empty-message').style.display = 'block';-->
+<!--    }-->
+<!--    /*]]>*/-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Visualization</title>
+
+    <!-- Cytoscape.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.22.0/cytoscape.min.js"></script>
+
+    <style>
+        /* Graph container with border and padding */
+        #graph-container {
+            width: 80%;
+            height: 600px;
+            border: 2px solid #333;
+            margin: 20px auto;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            position: relative;
+        }
+
+        #graph {
+            width: 100%;
+            height: 100%;
+            display: block; /* Make sure it takes full width/height */
+        }
+
+        /* Display a message when there are no nodes */
+        #empty-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            color: #888;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+<h1>Graph Visualization</h1>
+<a th:href="@{/}">
+    <button>Go to Home Page</button>
+</a>
+
+<!-- Graph Container -->
+<div id="graph-container">
+    <!-- Empty Message (will be hidden if graph data exists) -->
+    <div id="empty-message">No graph data available</div>
+    <!-- Actual Graph -->
+    <div id="graph"></div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // The nodes and edges data passed from the controller
+    const nodesWithRelations = [[${graphData.nodesWithRelations}]];
+    const nodesWithoutRelations = [[${graphData.nodesWithoutRelations}]];
+    const edges = [[${graphData.edges}]];
+
+    console.log('Nodes with relations:', nodesWithRelations);
+    console.log('Nodes without relations:', nodesWithoutRelations);
+    console.log('Edges:', edges);
+
+    // Check if there is data to display
+    if (nodesWithRelations.length > 0 || nodesWithoutRelations.length > 0 || edges.length > 0) {
+        // Remove the "No graph data available" message
+        document.getElementById('empty-message').style.display = 'none';
+
+        // Prepare Cytoscape.js elements from the Thymeleaf model data
+        const cyElements = {
+            nodes: [
+                ...nodesWithRelations.map(node => ({
+                    data: { id: node.id, label: node.label }
+                })),
+                ...nodesWithoutRelations.map(node => ({
+                    data: { id: node.id, label: node.label }
+                }))
+            ],
+            edges: edges.map(edge => ({
+                data: { source: edge.source, target: edge.target, label: edge.label }
+            }))
+        };
+
+        // Initialize Cytoscape.js to render the graph
+        const cy = cytoscape({
+            container: document.getElementById('graph'),
+            elements: cyElements,
+            style: [
+                {
+                    selector: 'node',
+                    style: {
+                        'content': 'data(label)',
+                        'text-valign': 'center',
+                        'background-color': '#66CC66', // Green for nodes with relations
+                        'color': '#fff',
+                        'width': 40,
+                        'height': 40,
+                        'font-size': 14
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 4,  // Increased width for better visibility
+                        'line-color': '#777',  // Lighter line color for edges
+                        'target-arrow-color': '#777',  // Arrow color matching the edge
+                        'target-arrow-shape': 'triangle',
+                        'label': 'data(label)',  // Display relationship name
+                        'font-size': 12,  // Font size for the edge label
+                        'text-opacity': 1,  // Full opacity for labels
+                        'color': '#333',  // Color for the edge label
+                        'text-background-opacity': 1, // Ensures text background is visible
+                        'text-background-color': '#f0f0f0'  // Light background for text for better readability
+                    }
+                }
+            ],
+            layout: {
+                name: 'grid',
+                rows: 2
+            }
+        });
+    } else {
+        // If no nodes or edges exist, show the "No data" message
+        document.getElementById('empty-message').style.display = 'block';
+    }
+    /*]]>*/
+</script>
+</body>
+</html>
+
+
+
